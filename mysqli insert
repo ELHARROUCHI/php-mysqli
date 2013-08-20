@@ -1,0 +1,12 @@
+$mysqli = new mysqli("localhost", 'root', 'password', 'demo');
+if (mysqli_connect_error()) {
+    die('error de conectar con la base de datos[' . mysqli_connect_error() . ']');
+}
+
+$query = 'INSERT INTO usuario(nombre,email,clave) VALUES (?,?,?);';
+if ($stmt = $mysqli->prepare($query)) {
+    $stmt->bind_param('sss', $nombre, $email, md5($clave));
+    $stmt->execute();
+    $stmt->close();
+}
+$mysqli->close();
