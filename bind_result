@@ -1,0 +1,16 @@
+<?php
+$db = new mysqli('localhost', 'root', 'password', 'demo');
+
+if (mysqli_connect_errno()) {
+    die('Error de conectar con la base de datos [' . mysqli_connect_error() . ']');
+}
+
+if ($result = $db->prepare('SELECT * FROM usuario;')) {
+    $result->execute();
+    $result->bind_result($id, $nombre, $email, $clave);
+
+    while ($result->fetch()) {
+        echo  $id . ' - ' . $nombre . ' - ' . $email . ' - ' . $clave . '<br/>';
+    }
+}
+?>
